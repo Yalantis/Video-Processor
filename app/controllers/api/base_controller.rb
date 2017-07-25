@@ -4,7 +4,8 @@ class Api::BaseController < ApplicationController
 
   before_action :authenticate_user!
 
-  rescue_from Exception do |exception|
+  # rescue_from Exception do |exception| # https://github.com/bbatsov/ruby-style-guide#no-blind-rescues
+  rescue_from StandardError do |exception|
     status = :internal_server_error
     error_hash = { error: I18n.t("api.errors.server_error"), details: {} }
 
